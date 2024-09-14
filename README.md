@@ -37,14 +37,13 @@ These prediction give aprobabilistic values which lie between Yes or No.
 
 ![Logistic Regression image](https://miro.medium.com/v2/resize:fit:1184/1*XJHhJLWWzB5vP2PmyXybJg.png)
 
+Like in linear regression, we can make simple models (Obesity is predicted by Weight) or more complicated models (Obesity is predicted by Weight + Genotype + Age + Astrological Sign). We can also test to see if each variable is useful for predicting (Obesity is predicted by Weight + Genotype + Age + Astrological Sign here Astrological Sign is not helping the prediction).
+
 ### Whow does the Logistic Regression works?
 
-The logistic regression model transform the linear regression function contious value output into a categorical value output using a sigmoid function, which maps any real-valued set of independent variables input into a value between 0 and 1. This function is known as the logistic regression.
+#### Data Reading
 
-Let the independent input features be:
-
-
-![Matrix](https://quicklatex.com/cache3/4e/ql_9e0c268ff5433b4026179f180ab0d94e_l3.svg)
+First we should get the all dataset. The data should be in a format where each row represents a single observation and each column represents a different variable. The target variable should be binary.
 
 
 
