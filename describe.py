@@ -1,5 +1,4 @@
 import pandas
-import numpy
 import utils
 
 def ft_describe(data: pandas.DataFrame) -> pandas.DataFrame:
