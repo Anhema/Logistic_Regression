@@ -1,65 +1,71 @@
 import math
 import pandas
 
-def mean(arr: list[int]):
-    sum: int = 0
+def mean(arr: list):
+	suma: int = 0
 
-    for n in arr:
-        sum += n
-    return sum / len(arr)
-
-
-def median(arr: list[int]):
-    arr.sort()
-    return arr[int(len(arr) / 2)]
+	for n in arr:
+		suma += n
+	return suma / len(arr)
 
 
-def mode(arr: list[int]):
-    dic = {}
-    n: int = 0
-
-    for i in arr:
-        if not i in dic:
-            dic[i] = 1
-        else:
-            dic[i] += 1
-
-    for g, j in dic.items():
-        if j == max(dic.values()):
-            n = g;
-
-    return n
+def median(arr: list):
+	arr.sort()
+	return arr[int(len(arr) / 2)]
 
 
-def min(arr: list[int]):
-    n: int = arr[0]
+def mode(arr: list):
+	dic = {}
+	n = 0
 
-    for i in arr:
-        if i < n:
-            n = i
+	for i in arr:
+		if not i in dic:
+			dic[i] = 1
+		else:
+			dic[i] += 1
 
-    return n
+	for g, j in dic.items():
+		if j == max(dic.values()):
+			n = g;
 
-
-def max(arr: list[int]):
-    n: int = arr[0]
-
-    for i in arr:
-        if i > n:
-            n = i
-
-    return n
+	return n
 
 
-def standard_derivation(arr: list[int]):
-    m: int = mean(arr)
-    sum: int = 0
+def min(arr: list):
+	n = arr[0]
 
-    for i in arr:
-        sum += (i - m)**2
+	for i in arr:
+		if i < n:
+			n = i
 
-    return math.sqrt(sum / (len(arr) - 1))
+	return n
 
 
-def percentile(arr: list[int], perc: int):
-    return sorted(arr)[int(math.ceil((len(arr) * perc) / 100)) - 1]
+def max(arr: list):
+	n = arr[0]
+
+	for i in arr:
+		if i > n:
+			n = i
+
+	return n
+
+
+def standard_derivation(arr: list):
+	m = mean(arr)
+	suma: int = 0
+
+	for i in arr:
+		suma += (i - m)**2
+
+	return math.sqrt(suma / (len(arr) - 1))
+
+
+def percentile(arr: list, perc):
+	return sorted(arr)[int(math.ceil((len(arr) * perc) / 100)) - 1]
+
+
+def standarize(data):
+	for i, value in enumerate(data):
+		data[i] = (value - mean(data)) / standard_derivation(data)
+	return data
