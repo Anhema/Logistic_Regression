@@ -13,11 +13,12 @@ def generate_pair(subjects, data):
 	}
 
 	plt.clf()
-	plt.title('Heatmap of Correlations\n\n', fontsize="50", fontweight = "bold")
-	
+	data = data.drop(columns=['Index'])
+
 	matrix = data.select_dtypes(include = [float, int])
 	matrix['Hogwarts House'] = data['Hogwarts House']
 	sns.pairplot(matrix, hue='Hogwarts House', palette = colors)
+	#plt.title('Heatmap of Correlations\n\n', fontsize="50", fontweight = "bold")
 
 	parent_dir = "./plots/"
 	if not os.path.isdir(parent_dir):
