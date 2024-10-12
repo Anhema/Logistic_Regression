@@ -1,5 +1,6 @@
 import math
 import pandas
+import numpy as np
 
 def mean(arr: list):
 	suma: int = 0
@@ -51,14 +52,14 @@ def max(arr: list):
 	return n
 
 
-def standard_derivation(arr: list):
+def standard_derivation(arr):
 	m = mean(arr)
-	suma: int = 0
+	suma = 0
 
-	for i in arr:
-		suma += (i - m)**2
+	for i in range(len(arr)):
+		suma += (arr[i] - m)**2
 
-	return math.sqrt(suma / (len(arr) - 1))
+	return np.sqrt(suma / (len(arr) - 1))
 
 
 def percentile(arr: list, perc):
@@ -67,5 +68,29 @@ def percentile(arr: list, perc):
 
 def standarize(data):
 	for i, value in enumerate(data):
-		data[i] = (value - mean(data)) / standard_derivation(data)
+		std = standard_derivation(data)
+		data[i] = (value - mean(data)) / std
+	return data
+
+
+def destandarize(data):
+	for i, value in enumerate(data):
+		std = standard_derivation(data)
+		data[i] = (value * std) + mean(data)
+	return data
+
+
+def normalize(data: pandas.DataFrame):
+	for value in data.columns:
+		_min = min(data[value])
+		_max = max(data[value])
+		data[value] = (data[value].values - _min) / (_max - _min)
+	return data
+
+
+def denormalize(data: pandas.DataFrame, reference: pandas.DataFrame):
+	for value in data.columns:
+		_min = min(reference[value])
+		_max = max(reference[value])
+		data[value] = data[value] * (_max - _min) + _min
 	return data
