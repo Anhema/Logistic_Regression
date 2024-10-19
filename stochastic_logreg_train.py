@@ -17,15 +17,23 @@ def cost_function(data, vals, theta):
 	return cost
 
 
-def gradient_descent(data, vals, theta, learning_rate: float, iterations: int):
+def stochastic_gradient_descent(data, vals, theta, learning_rate: float, iterations: int):
+	
 	size = len(vals)
-	all_cost = np.zeros(iterations)
+	all_cost = []
 
 	for i in range(iterations):
-		sigmoid = sigmoid_function(data @ theta)
-		gradient = (1 / size) * data.T @ (sigmoid - vals)
-		theta = theta - (learning_rate * gradient)
-		all_cost[i] = cost_function(data, vals, theta)
+		rand_i = np.random.randint(size)
+		x = data[rand_i]
+		y = vals[rand_i]
+		for n in range(size):
+			x_i = x[n]
+			y_i = y[n]
+			sigmoid = sigmoid_function(x_i @ theta)
+			gradient = (sigmoid - y_i) * x_i.T
+			theta = theta - (learning_rate * gradient)
+
+		all_cost.append(cost_function(data, vals, theta))
 	
 	return theta, all_cost
 
@@ -44,7 +52,7 @@ if __name__ == '__main__':
 		exit(1)
 	
 	learning_rate = 0.01
-	iterations = 10000
+	iterations = 100
 
 	# GET HOUSES
 	print("--------------Hogwarts Houses--------------\n")
@@ -82,10 +90,12 @@ if __name__ == '__main__':
 	# EXECUTE TRAINING
 	print("\n\n--------------TRAINING--------------\n")
 	all_thetas = np.zeros((len(houses), data.shape[1]))
+	#all_thetas = np.zeros((data.shape[1], 5))
 	all_costs = []
 	for i, house in enumerate(houses):
 		vals = np.where(y == house, 1, 0) # For each Hogwarts house make a list from students with 1 if they are from that house or 0 if not
-		theta, cost = gradient_descent(data, vals, all_thetas[i], learning_rate, iterations)
+		theta, cost = stochastic_gradient_descent(data, vals, all_thetas[i], learning_rate, iterations)
+		print(theta)
 		all_thetas[i] = theta
 		all_costs.append(cost)
 		print(orig_houses[house])
@@ -103,12 +113,12 @@ if __name__ == '__main__':
 		plt.ylabel('Cost')
 
 	fig.tight_layout()
-	plt.savefig('plots/cost.png')
+	plt.savefig('plots/stochastic_cost.png')
 
 	# SAVE RESULTS
 	output_dir = 'datasets'
 	os.makedirs('datasets', exist_ok=True)
-	output_path = os.path.join('datasets', 'logreg_thetas.pkl')
+	output_path = os.path.join('datasets', 'stochastic_logreg_thetas.pkl')
 	with open(output_path, 'wb') as f:
 		pickle.dump(all_thetas, f)
 	print(f'Thetas values saved in {output_path}.')

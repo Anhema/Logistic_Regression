@@ -7,9 +7,9 @@ import seaborn as sns
 def generate_pair(subjects, data):
 	colors = {
 		"Gryffindor":"red",
-		"Slytherin":"grey",
+		"Slytherin":"green",
 		"Ravenclaw":"blue",
-		"Hufflepuff":"green"
+		"Hufflepuff":"grey"
 	}
 
 	plt.clf()
@@ -24,6 +24,7 @@ def generate_pair(subjects, data):
 	if not os.path.isdir(parent_dir):
 		os.mkdir(parent_dir)
 	plt.savefig(parent_dir + "pair_plot.jpg")
+
 
 if __name__ == '__main__':
 	data = pandas.read_csv("./datasets/dataset_train.csv")

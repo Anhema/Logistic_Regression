@@ -2,7 +2,13 @@ import math
 import pandas
 import numpy as np
 
+NORMALIZE: bool = True
+
 def mean(arr: list):
+
+	if len(arr) == 0:
+		return None
+
 	suma: int = 0
 
 	for n in arr:
@@ -11,11 +17,19 @@ def mean(arr: list):
 
 
 def median(arr: list):
+
+	if len(arr) == 0:
+		return None
+
 	arr.sort()
 	return arr[int(len(arr) / 2)]
 
 
 def mode(arr: list):
+
+	if len(arr) == 0:
+		return None
+
 	dic = {}
 	n = 0
 
@@ -26,13 +40,30 @@ def mode(arr: list):
 			dic[i] += 1
 
 	for g, j in dic.items():
-		if j == max(dic.values()):
-			n = g;
+		if j == max(list(dic.values())):
+			n = g
 
 	return n
 
 
+def variance(arr: list):
+
+	if len(arr) == 0:
+		return None
+
+	n = len(arr)
+	m = mean(arr)
+
+	deviations = [(x - m) ** 2 for x in arr]
+	variance = sum (deviations) / n
+	return variance
+
+
 def min(arr: list):
+
+	if len(arr) == 0:
+		return None
+
 	n = arr[0]
 
 	for i in arr:
@@ -43,6 +74,10 @@ def min(arr: list):
 
 
 def max(arr: list):
+
+	if len(arr) == 0:
+		return None
+
 	n = arr[0]
 
 	for i in arr:
@@ -53,6 +88,8 @@ def max(arr: list):
 
 
 def standard_derivation(arr):
+	if len(arr) == 0:
+		return None
 	m = mean(arr)
 	suma = 0
 
@@ -63,6 +100,8 @@ def standard_derivation(arr):
 
 
 def percentile(arr: list, perc):
+	if len(arr) == 0:
+		return None
 	return sorted(arr)[int(math.ceil((len(arr) * perc) / 100)) - 1]
 
 
@@ -94,3 +133,14 @@ def denormalize(data: pandas.DataFrame, reference: pandas.DataFrame):
 		_max = max(reference[value])
 		data[value] = data[value] * (_max - _min) + _min
 	return data
+
+
+def replace_nan_with_median(data: pandas.DataFrame) -> pandas.DataFrame:
+	num_cols = data.select_dtypes(include=[float, int]).columns
+	for col in num_cols:
+		values = data[col].dropna().tolist()
+		med = median(values)
+		if med is not None:
+			data[col] = data[col].fillna(med)
+	return data
+
