@@ -13,7 +13,8 @@ def sigmoid_function(x):
 def cost_function(data, vals, theta):
 	size = len(vals)
 	h = sigmoid_function(data @ theta)
-	cost = -(1 / size) * ((vals @ np.log(h)) + ((1 - vals) @ np.log(1 - h)))
+	epsilon = 1e-5  # prevent log(0)
+	cost = -(1 / size) * ((vals @ np.log(h + epsilon)) + ((1 - vals) @ np.log(1 - h + epsilon)))
 	return cost
 
 
@@ -23,7 +24,7 @@ def stochastic_gradient_descent(data, vals, theta, learning_rate: float, iterati
 	all_cost = []
 
 	for i in range(iterations):
-		rand_i = np.random.randint(size)
+		rand_i = np.random.permutation(size)
 		x = data[rand_i]
 		y = vals[rand_i]
 		for n in range(size):
@@ -95,12 +96,11 @@ if __name__ == '__main__':
 	for i, house in enumerate(houses):
 		vals = np.where(y == house, 1, 0) # For each Hogwarts house make a list from students with 1 if they are from that house or 0 if not
 		theta, cost = stochastic_gradient_descent(data, vals, all_thetas[i], learning_rate, iterations)
-		print(theta)
 		all_thetas[i] = theta
 		all_costs.append(cost)
 		print(orig_houses[house])
 		print (f"THETAS: {theta.tolist()}")
-		print (f"COST: {cost}\n")
+		# print (f"COST: {cost}\n")
 
 	# DRAW LOSS COST
 	plt.rcParams["figure.figsize"] = (10, 10)

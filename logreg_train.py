@@ -13,7 +13,8 @@ def sigmoid_function(x):
 def cost_function(data, vals, theta):
 	size = len(vals)
 	h = sigmoid_function(data @ theta)
-	cost = -(1 / size) * ((vals @ np.log(h)) + ((1 - vals) @ np.log(1 - h)))
+	epsilon = 1e-5  # prevent log(0)
+	cost = -(1 / size) * ((vals @ np.log(h + epsilon)) + ((1 - vals) @ np.log(1 - h + epsilon)))
 	return cost
 
 
@@ -90,7 +91,7 @@ if __name__ == '__main__':
 		all_costs.append(cost)
 		print(orig_houses[house])
 		print (f"THETAS: {theta.tolist()}")
-		print (f"COST: {cost}\n")
+		# print (f"COST: {cost}\n")
 
 	# DRAW LOSS COST
 	plt.rcParams["figure.figsize"] = (10, 10)

@@ -55,7 +55,7 @@ Index,Hogwarts House
 53,Ravenclaw
 54,Hufflepuff
 55,Slytherin
-56,Ravenclaw
+56,Slytherin
 57,Ravenclaw
 58,Hufflepuff
 59,Gryffindor
@@ -106,7 +106,7 @@ Index,Hogwarts House
 104,Ravenclaw
 105,Ravenclaw
 106,Hufflepuff
-107,Ravenclaw
+107,Slytherin
 108,Slytherin
 109,Hufflepuff
 110,Hufflepuff
@@ -243,7 +243,7 @@ Index,Hogwarts House
 241,Gryffindor
 242,Hufflepuff
 243,Hufflepuff
-244,Hufflepuff
+244,Gryffindor
 245,Gryffindor
 246,Ravenclaw
 247,Ravenclaw
@@ -252,8 +252,8 @@ Index,Hogwarts House
 250,Slytherin
 251,Slytherin
 252,Hufflepuff
-253,Gryffindor
-254,Gryffindor
+253,Hufflepuff
+254,Ravenclaw
 255,Ravenclaw
 256,Hufflepuff
 257,Ravenclaw
@@ -337,7 +337,7 @@ Index,Hogwarts House
 335,Hufflepuff
 336,Ravenclaw
 337,Hufflepuff
-338,Hufflepuff
+338,Gryffindor
 339,Hufflepuff
 340,Hufflepuff
 341,Slytherin
@@ -370,7 +370,7 @@ Index,Hogwarts House
 368,Gryffindor
 369,Hufflepuff
 370,Slytherin
-371,Hufflepuff
+371,Gryffindor
 372,Gryffindor
 373,Ravenclaw
 374,Hufflepuff
@@ -398,4 +398,4 @@ Index,Hogwarts House
 396,Hufflepuff
 397,Hufflepuff
 398,Ravenclaw
-399,Gryffindor
+399,Ravenclaw
